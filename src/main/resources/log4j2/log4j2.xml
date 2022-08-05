@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" />
+			</Console>
+        <RollingFile name="Alllog" fileName="./log/retailer2customer.log" filePattern="./log/retailer2customer-%d{yyyy-MM-dd}.log.gz">
+           <!-- <LevelRangeFilter minLevel="TRACE" maxLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <PatternLayout>
+                <pattern>%d %p %C{1.} %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+           </Appenders>
+    <Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="Alllog" level="info" />
+		</Root>
+		<Logger name="retailer2customer" level="info">
+            <AppenderRef ref="Alllog" />
+        </Logger>
+       	</Loggers>
+</Configuration>
